@@ -1,5 +1,5 @@
 server:
-  port: 9661
+  port: 9665
 spring:
   http:
     cors:

@@ -9,7 +9,7 @@ spring:
       maxFileSize: 100MB
       maxRequestSize: 1024MB
   datasource:
-    url: jdbc:mysql://localhost:5432/tumour?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:5432/fudan_web_site?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=utf-8
     username: root
     password: Qyasd@123
     #username: root
@@ -26,7 +26,7 @@ spring:
       test-on-return: false
       remove-abandoned: true
       remove-abandoned-timeout: 1800
-      log-abandoned: true
+      log-abandoned: false
       time-between-log-stats-millis: 300000
       test-on-borrow: true
       validation-query: select 'x' from dual
@@ -34,3 +34,5 @@ app:
   upload:
     domain: http://test.com
     root: /website/upload
+
+    #后台管理账号 admin003 123456
