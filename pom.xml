@@ -126,57 +126,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
-	<profiles>
-		<profile>
-			<id>dev</id>  <!--开发环境-->
-			<properties>
-				<deploy.type>dev</deploy.type>
-			</properties>
-		</profile>
-		<profile>
-			<id>test</id>  <!--测试环境-->
-			<properties>
-				<deploy.type>test</deploy.type>
-			</properties>
-		</profile>
-		<profile>
-			<id>pro</id> <!--生产环境-->
-			<properties>
-				<deploy.type>pro</deploy.type>
-			</properties>
-		</profile>
-		<profile>
-			<id>pro1</id> <!--生产环境 1-->
-			<properties>
-				<deploy.type>pro1</deploy.type>
-			</properties>
-		</profile>
-	</profiles>
-
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources/${deploy.type}</directory>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<includes>
-					<include>**/*.yml</include>
-					<include>**/*.properties</include>
-					<include>**/*.xml</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/java</directory>
-				<includes>
-					<include>**/*.yml</include>
-					<include>**/*.xml</include>
-				</includes>
-			</resource>
-		</resources>
-	</build>
-
 	<repositories>
 		<repository>
 			<id>aliyun</id>
