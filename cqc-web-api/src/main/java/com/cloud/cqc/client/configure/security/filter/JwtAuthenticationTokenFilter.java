@@ -26,11 +26,11 @@ import com.cloud.cqc.framework.core.utils.MessageTools;
 import io.jsonwebtoken.JwtException;
 
 /**
- * 
+ *
  * <p>
  * jwt 校验过滤器
  * </p>
- * 
+ *
  * @author joy.zhou
  * @date 2017年8月31日
  * @version 1.0
@@ -61,6 +61,33 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
+
+        if (!"OPTIONS".equals(request.getMethod()) && !this.antMatchers(request)) {
+            String requestHeader = request.getHeader(this.jwtProperties.getHeader());
+            if (requestHeader != null && requestHeader.startsWith(this.jwtProperties.getTokenHeader())) {
+                String authToken = requestHeader.substring(this.jwtProperties.getTokenHeader().length());
+
+                try {
+                    if (this.jwtTokenUtil.isTokenExpired(authToken)) {
+                        response.sendError(401, "auth.token.expire");
+                        return;
+                    }
+                } catch (JwtException var8) {
+                    response.sendError(401, MessageTools.message("auth.token.error", new Object[0]));
+                    return;
+                }
+
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(this.jwtTokenUtil.getUsernameFromToken(authToken));
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, (Object)null, userDetails.getAuthorities());
+                authentication.setDetails((new WebAuthenticationDetailsSource()).buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                chain.doFilter(request, response);
+            } else {
+                response.sendError(401, MessageTools.message("auth.token.error", new Object[0]));
+            }
+        } else {
+            chain.doFilter(request, response);
+        }
 
 /*		if ("OPTIONS".equals(request.getMethod()) || antMatchers(request)) {
 			chain.doFilter(request, response);

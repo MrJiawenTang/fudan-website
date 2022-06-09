@@ -1,7 +1,5 @@
 package com.cloud.cqc.client.security.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,6 +23,7 @@ import com.cloud.cqc.framework.mvc.http.RestEntity;
  * </p>
  *
  * @author Joy.zhou
+ *
  */
 @RestController
 @RequestMapping("/code")
@@ -45,27 +44,16 @@ public class CodeResourceController extends SecurityController {
     @RequestMapping(value = "/resource", method = RequestMethod.GET)
     public RestEntity<?> getResource(Authentication auth) {
 
-        String result = "{\"id\":6,\"username\":\"admin003\",\"sex\":0,\"authorities\":[{\"authority\":\"ROLE_ADMIN\"}]}";
-
-        JSONObject jsonObject = JSONObject.parseObject(result);
-        
-        return resultOk(jsonObject);
+        return resultOk(auth.getPrincipal());
     }
-
-/*    public static void main(String[] args) {
-
-        String result = "{\"id\":6,\"username\":\"admin003\",\"sex\":0,\"authorities\":[{\"authority\":\"ROLE_ADMIN\"}]}";
-
-        JSONObject jsonObject = JSONObject.parseObject(result);
-
-        System.out.println(JSONObject.toJSONString(jsonObject));
-    }*/
 
     /**
      * 修改用户资料
      *
-     * @param user 用户资料
-     * @param auth 当前登录用户
+     * @param user
+     *            用户资料
+     * @param auth
+     *            当前登录用户
      * @return
      */
     @RequestMapping(value = "/resource", method = RequestMethod.PUT)
@@ -79,8 +67,10 @@ public class CodeResourceController extends SecurityController {
     /**
      * 修改用户密码
      *
-     * @param user 用户资料
-     * @param auth 当前登录用户
+     * @param user
+     *            用户资料
+     * @param auth
+     *            当前登录用户
      * @return
      */
     @RequestMapping(value = "/password", method = RequestMethod.PUT)
