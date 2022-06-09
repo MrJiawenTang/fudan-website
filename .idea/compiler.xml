@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="USE_RELEASE_OPTION" value="false" />
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="cqc-framework-web" />
+        <module name="cqc-service-core" />
+        <module name="cqc-service-generator" />
+        <module name="cqc-web-api" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="cqc-framework-web" target="1.8" />
+      <module name="cqc-parent" target="1.5" />
+      <module name="cqc-service-core" target="1.8" />
+      <module name="cqc-service-generator" target="1.8" />
+      <module name="cqc-web-api" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.cqc.service.cms.mapper.CmsContentMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.cloud.cqc.service.cms.entity.CmsContent">
+		<result column="id" property="id" />
+		<result column="create_by" property="createBy" />
+		<result column="create_time" property="createTime" />
+		<result column="last_update_by" property="lastUpdateBy" />
+		<result column="last_update_time" property="lastUpdateTime" />
+		<result column="deleted" property="deleted" />
+		<result column="title" property="title" />
+		<result column="category_code" property="categoryCode" />
+		<result column="copied" property="copied" />
+		<result column="author" property="author" />
+		<result column="editor" property="editor" />
+		<result column="description" property="description" />
+		<result column="tags" property="tags" />
+		<result column="cover" property="cover" />
+		<result column="status" property="status" />
+		<result column="comments" property="comments" />
+		<result column="clicks" property="clicks" />
+		<result column="sort" property="sort" />
+		<result column="publish_time" property="publishTime" />
+		<result column="publish_user" property="publishUser" />
+	</resultMap>
+
+</mapper>

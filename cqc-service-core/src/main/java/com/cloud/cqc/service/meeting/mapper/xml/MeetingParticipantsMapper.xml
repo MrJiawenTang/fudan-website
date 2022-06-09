@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.cqc.service.meeting.mapper.MeetingParticipantsMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.cloud.cqc.service.meeting.entity.MeetingParticipants">
+		<result column="id" property="id" />
+		<result column="create_by" property="createBy" />
+		<result column="create_time" property="createTime" />
+		<result column="last_update_by" property="lastUpdateBy" />
+		<result column="last_update_time" property="lastUpdateTime" />
+		<result column="deleted" property="deleted" />
+		<result column="meeting_id" property="meetingId" />
+		<result column="name" property="name" />
+		<result column="title" property="title" />
+		<result column="mobile" property="mobile" />
+		<result column="sex" property="sex" />
+		<result column="mail" property="mail" />
+		<result column="sort" property="sort" />
+		<result column="sms_time" property="smsTime" />
+		<result column="mail_time" property="mailTime" />
+		<result column="sign_in_status" property="signInStatus" />
+		<result column="sign_in_time" property="signInTime" />
+	</resultMap>
+
+</mapper>

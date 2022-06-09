@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/cqc-framework-web/cqc-framework-web.iml" filepath="$PROJECT_DIR$/cqc-framework-web/cqc-framework-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cqc-parent.iml" filepath="$PROJECT_DIR$/cqc-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cqc-service-core/cqc-service-core.iml" filepath="$PROJECT_DIR$/cqc-service-core/cqc-service-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cqc-service-generator/cqc-service-generator.iml" filepath="$PROJECT_DIR$/cqc-service-generator/cqc-service-generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cqc-web-api/cqc-web-api.iml" filepath="$PROJECT_DIR$/cqc-web-api/cqc-web-api.iml" />
+    </modules>
+  </component>
+</project>

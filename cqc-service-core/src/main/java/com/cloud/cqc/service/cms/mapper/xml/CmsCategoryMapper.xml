@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.cqc.service.cms.mapper.CmsCategoryMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.cloud.cqc.service.cms.entity.CmsCategory">
+		<result column="id" property="id" />
+		<result column="create_by" property="createBy" />
+		<result column="create_time" property="createTime" />
+		<result column="last_update_by" property="lastUpdateBy" />
+		<result column="last_update_time" property="lastUpdateTime" />
+		<result column="deleted" property="deleted" />
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="parent_id" property="parentId" />
+		<result column="type" property="type" />
+		<result column="jump_url" property="jumpUrl" />
+		<result column="template_path" property="templatePath" />
+		<result column="sort" property="sort" />
+		<result column="disabled" property="disabled" />
+	</resultMap>
+
+</mapper>

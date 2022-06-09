@@ -1,0 +1,36 @@
+server:
+  port: 8090
+spring:
+  http:
+    cors:
+      allowed: true
+      allowed-origins: '*'
+    multipart:
+      maxFileSize: 100MB
+      maxRequestSize: 1024MB
+  datasource:
+    url: jdbc:mysql://localhost:5432/tumour?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=utf-8
+    username: root
+    password: Qyasd@123
+    #username: root
+    #password: qingying2021
+    #url: jdbc:mysql://106.14.41.137:3306/fudan_web_site?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    druid:
+      initial-size: 6
+      max-active: 30
+      max-wait: 60000
+      max-open-prepared-statements: 100
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-return: false
+      remove-abandoned: true
+      remove-abandoned-timeout: 1800
+      log-abandoned: true
+      time-between-log-stats-millis: 300000
+      test-on-borrow: true
+      validation-query: select 'x' from dual
+app:
+  upload:
+    domain: http://test.com
+    root: /website/upload

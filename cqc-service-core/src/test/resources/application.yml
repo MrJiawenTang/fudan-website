@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: root
+    password: 123456
+    schema: classpath:db/schema.sql
+    druid:
+      initial-size: 3
+      max-active: 30
+      max-wait: 60000
+      max-open-prepared-statements: 100
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-return: false
+      remove-abandoned: true
+      remove-abandoned-timeout: 1800
+      log-abandoned: true
+      time-between-log-stats-millis: 300000
+      test-on-borrow: true
+      validation-query: select 'x' from dual
+mybatis-plus:
+  mapper-locations: classpath*:com/cloud/cqc/service/**/mapper/xml/*.xml
+  global-config:
+    id-type: 0
+    db-column-underline: true
+    refresh-mapper: false
+  configuration:
+    map-underscore-to-camel-case: true
