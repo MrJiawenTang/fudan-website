@@ -9,9 +9,10 @@ spring:
       maxFileSize: 100MB
       maxRequestSize: 1024MB
   datasource:
-    url: jdbc:mysql://localhost:5432/tumour?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/tumour?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=utf-8
+    #url: jdbc:mysql://106.14.41.137:3306/tumour?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=utf-8
     username: root
-    password: Qyasd@123
+    password: qingying2021
     #username: root
     #password: qingying2021
     #url: jdbc:mysql://106.14.41.137:3306/fudan_web_site?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
