@@ -1,22 +1,20 @@
 server:
-  port: 8090
+  port: 9661
 spring:
   http:
     cors:
       allowed: true
       allowed-origins: '*'
-    multipart:
-      maxFileSize: 100MB
-      maxRequestSize: 1024MB
   datasource:
+    #url: jdbc:mysql://120.26.58.188:3306/fudanWebSite?characterEncoding=utf8
+    #username: root
+    #password: 密码
     url: jdbc:mysql://localhost:5432/fudan_web_site?serverTimezone=GMT%2B8&allowMultiQueries=true&characterEncoding=utf-8
     username: root
     password: Qyasd@123
-    #username: root
-    #password: qingying2021
-    #url: jdbc:mysql://106.14.41.137:3306/fudan_web_site?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    #driver-class-name: com.mysql.cj.jdbc.Driver
     druid:
-      initial-size: 6
+      initial-size: 3
       max-active: 30
       max-wait: 60000
       max-open-prepared-statements: 100
@@ -30,9 +28,19 @@ spring:
       time-between-log-stats-millis: 300000
       test-on-borrow: true
       validation-query: select 'x' from dual
+mybatis-plus:
+  mapper-locations: com/cloud/cqc/service/**/mapper/xml/*.xml
+  global-config:
+    id-type: 0
+    db-column-underline: true
+  configuration:
+    map-underscore-to-camel-case: true
+jwt:
+  secret: CQCSecret
+  expiration: 604800
+  md5-key: CQCRKEY
 app:
+  init-password: 123456
   upload:
-    domain: http://test.com
-    root: /website/upload
-
-    #后台管理账号 admin003 123456
+    domain: http://120.26.58.186/static/upload
+    root: D:\ftpRoot\FuDanWebSite\dist\static\upload

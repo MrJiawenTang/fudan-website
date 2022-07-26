@@ -34,9 +34,9 @@ public class AuthController extends BaseRestController {
 	private JwtTokenUtil jwtTokenUtil;
 
 	/**
-	 * 
+	 *
 	 * 获取token
-	 * 
+	 *
 	 * @param authenticationRequest
 	 *            请求参数
 	 * @return
