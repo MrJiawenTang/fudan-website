@@ -52,6 +52,6 @@
         <appender-ref ref="stdout"/>
         <appender-ref ref="INFO-FILE" />
         <appender-ref ref="ERROR-FILE" />
-      <!--  <appender-ref ref="EMAIL" />-->
+        <!--  <appender-ref ref="EMAIL" />-->
     </root>
 </configuration>
