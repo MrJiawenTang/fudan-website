@@ -26,6 +26,7 @@
                 <jdk>${jdk.version}</jdk>
             </activation>
             <properties>
+                <deploy.type></deploy.type>
                 <maven.compiler.source>${jdk.version}</maven.compiler.source>
                 <maven.compiler.target>${jdk.version}</maven.compiler.target>
                 <maven.compiler.compilerVersion>${jdk.version}</maven.compiler.compilerVersion>
@@ -53,7 +54,7 @@
                 <jdk>${jdk.version}</jdk>
             </activation>
             <properties>
-                <deploy.type>test</deploy.type>
+                <deploy.type>pro</deploy.type>
                 <maven.compiler.source>${jdk.version}</maven.compiler.source>
                 <maven.compiler.target>${jdk.version}</maven.compiler.target>
                 <maven.compiler.compilerVersion>${jdk.version}</maven.compiler.compilerVersion>
