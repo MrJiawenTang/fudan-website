@@ -36,7 +36,7 @@
         <profile>
             <id>test</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
                 <jdk>${jdk.version}</jdk>
             </activation>
             <properties>
@@ -46,11 +46,25 @@
                 <maven.compiler.compilerVersion>${jdk.version}</maven.compiler.compilerVersion>
             </properties>
         </profile>
+        <!--测试环境阿里云服务器-->
+        <profile>
+            <id>test2</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <jdk>${jdk.version}</jdk>
+            </activation>
+            <properties>
+                <deploy.type>test2</deploy.type>
+                <maven.compiler.source>${jdk.version}</maven.compiler.source>
+                <maven.compiler.target>${jdk.version}</maven.compiler.target>
+                <maven.compiler.compilerVersion>${jdk.version}</maven.compiler.compilerVersion>
+            </properties>
+        </profile>
         <!--生产环境-->
         <profile>
             <id>pro</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
                 <jdk>${jdk.version}</jdk>
             </activation>
             <properties>
