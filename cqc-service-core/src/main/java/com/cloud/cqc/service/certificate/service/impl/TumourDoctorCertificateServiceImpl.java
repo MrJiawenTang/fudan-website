@@ -93,7 +93,7 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
         try {
             String userDir = System.getProperties().getProperty("user.dir");
 
-            userDir = userDir.substring(0, userDir.length() - 20);
+            userDir = userDir.substring(0, userDir.length() - 19);
 
             log.info("userDir:{}", userDir);
 
