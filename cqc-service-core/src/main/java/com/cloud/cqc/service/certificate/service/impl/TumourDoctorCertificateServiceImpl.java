@@ -93,7 +93,9 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
         try {
             String userDir = System.getProperties().getProperty("user.dir");
 
-            log.info("userDir:{}", userDir + "/cqc-service-core/src/main/resources/培训信息录入模板.xlsx");
+            userDir = userDir.replace("target", "");
+
+            log.info("userDir:{}", userDir + "cqc-service-core/src/main/resources/培训信息录入模板.xlsx");
 
             File file = new File(userDir + "/cqc-service-core/src/main/resources/培训信息录入模板.xlsx");
             response.setContentType("application/octet-stream;charset=utf-8");
