@@ -2,9 +2,11 @@ package com.cloud.cqc.service.certificate.searchable;
 
 import com.cloud.cqc.framework.persistence.dto.DefaultSortSearchable;
 import com.cloud.cqc.util.AESUtil;
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
 
+@Data
 public class TumourDoctorCertificateSearchable extends DefaultSortSearchable {
 
     private static final long serialVersionUID = 1L;
@@ -24,6 +26,10 @@ public class TumourDoctorCertificateSearchable extends DefaultSortSearchable {
     //证书下载验证码
     @NotBlank(message = "证书下载验证码不允许为空")
     private String verifyCode;
+
+    private String startTime;
+
+    private String endTime;
 
     private Integer deleted;
 

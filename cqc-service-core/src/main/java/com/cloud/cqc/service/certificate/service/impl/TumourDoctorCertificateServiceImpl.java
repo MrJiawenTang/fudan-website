@@ -67,6 +67,16 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
             if (search.getDeleted() != null) {
                 ew.eq("deleted", search.getDeleted());
             }
+
+            if (search.getStartTime() != null) {
+
+                ew.ge("create_time", search.getStartTime());
+            }
+
+            if (search.getEndTime() != null) {
+
+                ew.le("create_time", search.getEndTime());
+            }
         }
     }
 
