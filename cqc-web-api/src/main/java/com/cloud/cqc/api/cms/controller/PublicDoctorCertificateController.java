@@ -67,10 +67,6 @@ public class PublicDoctorCertificateController extends BaseRestController {
     public Object list(@PathVariable Integer size, @PathVariable Integer current,
                        @ModelAttribute TumourDoctorCertificateSearchable searchable) {
 
-        if (current != 0) {
-            current--;
-        }
-
         if (searchable == null) {
             searchable = new TumourDoctorCertificateSearchable();
         }
