@@ -3,8 +3,10 @@ package com.cloud.cqc.api.cms.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.cloud.cqc.framework.mvc.BaseRestController;
+import com.cloud.cqc.service.certificate.entity.TumourDoctorCertificate;
 import com.cloud.cqc.service.certificate.searchable.TumourDoctorCertificateSearchable;
 import com.cloud.cqc.service.certificate.service.ITumourDoctorCertificateService;
+import com.cloud.cqc.service.certificate.vo.TumourDoctorCertificateVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +55,32 @@ public class PublicDoctorCertificateController extends BaseRestController {
 
         return resultOk(tumourDoctorCertificateService.findOneCertificate(searchable));
 
+    }
+
+    /**
+     * 更新单个证书
+     */
+    @PutMapping(value = "/update")
+    public Object getSlideList(@RequestBody TumourDoctorCertificate certificate) {
+
+        log.info("更新单个证书请求报文:{}", JSONObject.toJSONString(certificate));
+
+        tumourDoctorCertificateService.updateEntity(certificate);
+
+        return resultOk();
+    }
+
+    /**
+     * 新增单个证书
+     */
+    @PostMapping(value = "/add")
+    public Object getSlideList(@RequestBody TumourDoctorCertificateVO vo) {
+
+        log.info("新增单个证书请求报文:{}", JSONObject.toJSONString(vo));
+
+        tumourDoctorCertificateService.addEntity(vo);
+
+        return resultOk();
     }
 
     /**

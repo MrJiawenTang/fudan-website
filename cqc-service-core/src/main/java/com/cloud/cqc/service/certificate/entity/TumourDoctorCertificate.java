@@ -7,6 +7,7 @@ import com.cloud.cqc.util.AESUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
@@ -15,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
  * @Description
  * @createTime 2022年08月11日 16:27:00
  */
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

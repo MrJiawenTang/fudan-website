@@ -138,6 +138,12 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
         super.updateById(tumourDoctorCertificate);
     }
 
+    @Override
+    public void addEntity(TumourDoctorCertificateVO tumourDoctorCertificateVO) {
+
+        super.insert(tumourDoctorCertificateVO);
+    }
+
     /**
      * @author MrTang
      * @time 2022-08-11 17:42
@@ -214,6 +220,8 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
                 doctorCertificate.setMobilePhone(trimByStr(arr[1]));
 
                 doctorCertificate.setIdCard(trimByStr(arr[2]));
+
+                doctorCertificate.setDeleted(0);
 
                 try {
 

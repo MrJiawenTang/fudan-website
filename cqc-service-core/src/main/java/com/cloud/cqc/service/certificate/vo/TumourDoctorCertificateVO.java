@@ -41,6 +41,8 @@ public class TumourDoctorCertificateVO extends BasicEntity {
     //颁发时间
     private String issuedTime;
 
+    private Integer deleted = 0;
+
     public String getTrainingDate() {
         if (StringUtils.isNotEmpty(this.trainingDate)) {
 
