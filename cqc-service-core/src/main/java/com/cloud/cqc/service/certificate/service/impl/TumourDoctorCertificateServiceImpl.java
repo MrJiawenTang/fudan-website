@@ -135,7 +135,14 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
 
         }
 
-        super.updateById(tumourDoctorCertificate);
+        TumourDoctorCertificate findOne = tumourDoctorCertificateMapper.selectById(tumourDoctorCertificate.getId());
+
+        if (findOne == null) {
+
+            throw new RuntimeException("没有找到此ID的证书,Id:{}" + tumourDoctorCertificate.getId());
+        }
+
+        super.insertOrUpdate(tumourDoctorCertificate);
     }
 
     @Override
@@ -183,7 +190,7 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
                 continue;
             }
 
-            if (arr.length == 8) {
+            if (arr.length == 10) {
 
                 EntityWrapper<TumourDoctorCertificate> ew = new EntityWrapper<>();
 
@@ -201,13 +208,15 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
                     continue;
                 }
 
-                //姓名 手机号 身份证号 培训会开始结束时间 培训会年度 证书编号 有效期 颁发时间
+                //姓名 手机号 身份证号 培训会开始结束时间 培训会年度 证书编号 有效期 颁发时间 验证码 所属医院
                 TumourDoctorCertificate doctorCertificate = TumourDoctorCertificate.builder()
                         .trainingTimeSpan(trimByStr(arr[3]))
                         .trainingDate(trimByStr(arr[4]))
                         .certificateNumber(trimByStr(arr[5]))
                         .termSpan(trimByStr(arr[6]))
                         .issuedTime(trimByStr(arr[7]))
+                        .verifyCode(trimByStr(arr[8]))
+                        .hospital(trimByStr(arr[9]))
                         .build();
 
                 //随机生成五位英文加数字的验证码

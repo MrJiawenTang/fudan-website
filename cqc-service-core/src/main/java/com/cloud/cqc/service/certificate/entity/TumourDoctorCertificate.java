@@ -64,6 +64,9 @@ public class TumourDoctorCertificate extends BasicEntity {
     //颁发时间
     private String issuedTime;
 
+    //所属医院
+    private String hospital;
+
     public String getName() {
         if (StringUtils.isNotBlank(this.nameAes)) {
             return AESUtil.AESDecode(this.nameAes);
