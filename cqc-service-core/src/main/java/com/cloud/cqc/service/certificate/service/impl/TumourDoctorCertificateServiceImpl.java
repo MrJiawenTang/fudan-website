@@ -183,11 +183,7 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
 
             line = line.replaceAll("[\\[\\]]", "");
 
-            log.info("line:{}", line);
-
             String[] arr = line.split(",");
-
-            log.info("arr.length:{}", arr.length);
 
             if (StringUtils.contains(arr[0], "null")
                     || StringUtils.contains(arr[1], "null")

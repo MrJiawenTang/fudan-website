@@ -34,7 +34,12 @@ public class PublicDoctorCertificateController extends BaseRestController {
 
         String result = tumourDoctorCertificateService.uploadCertificateInfoByExcel(file);
 
-        return resultOk().appendMessage(result);
+        if ("success".equals(result)) {
+
+            return resultOk().appendMessage(result);
+        }
+
+        return resultError().appendMessage(result);
     }
 
     //下载证书录入excel模版
