@@ -171,6 +171,8 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
 
         List<Object> objects = ExcelUtil.readLessThan1000RowBySheetMultipartFile(file, sheet);
 
+        log.info("objects:{}", JSONObject.toJSONString(objects));
+
         StringBuilder errSbr = new StringBuilder("导入失败的医生，可能这些医生之前已经导入过:");
 
         long errorNumber = 0L;
