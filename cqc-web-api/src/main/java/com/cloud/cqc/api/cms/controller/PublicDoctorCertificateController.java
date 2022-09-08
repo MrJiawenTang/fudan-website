@@ -1,8 +1,8 @@
 package com.cloud.cqc.api.cms.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.cloud.cqc.framework.mvc.BaseRestController;
+import com.cloud.cqc.client.common.controller.CRUDController;
+import com.cloud.cqc.framework.mvc.http.RestEntity;
 import com.cloud.cqc.service.certificate.entity.TumourDoctorCertificate;
 import com.cloud.cqc.service.certificate.searchable.TumourDoctorCertificateSearchable;
 import com.cloud.cqc.service.certificate.service.ITumourDoctorCertificateService;
@@ -22,8 +22,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/certificate")
-public class PublicDoctorCertificateController extends BaseRestController {
+@RequestMapping("/certificate/certificateList")
+public class PublicDoctorCertificateController
+        extends CRUDController<TumourDoctorCertificate, TumourDoctorCertificateVO, TumourDoctorCertificateSearchable, ITumourDoctorCertificateService> {
 
     @Resource
     private ITumourDoctorCertificateService tumourDoctorCertificateService;
@@ -34,12 +35,18 @@ public class PublicDoctorCertificateController extends BaseRestController {
 
         String result = tumourDoctorCertificateService.uploadCertificateInfoByExcel(file);
 
+        RestEntity r;
+
         if ("success".equals(result)) {
 
-            return resultOk().appendMessage(result);
+            r = resultOk().appendMessage(result);
+        } else {
+            r = resultError().appendMessage(result);
         }
 
-        return resultError().appendMessage(result);
+        log.info("根据excel文件导入培训证书数据到系统返回报文:{}", JSONObject.toJSONString(r));
+
+        return r;
     }
 
     //下载证书录入excel模版
@@ -96,7 +103,7 @@ public class PublicDoctorCertificateController extends BaseRestController {
      * @param searchable
      * @return
      */
-    @GetMapping(value = "/list/{current}_{size}")
+/*    @GetMapping(value = "/list/{current}_{size}")
     public Object list(@PathVariable Integer size, @PathVariable Integer current,
                        @ModelAttribute TumourDoctorCertificateSearchable searchable) {
 
@@ -107,6 +114,6 @@ public class PublicDoctorCertificateController extends BaseRestController {
         log.info("获取证书内容列表searchable:{},size:{},current:{}", JSONObject.toJSONString(searchable), size, current);
 
         return resultOk(tumourDoctorCertificateService.selectPage(new Page<>(current, size), searchable));
-    }
+    }*/
 
 }
