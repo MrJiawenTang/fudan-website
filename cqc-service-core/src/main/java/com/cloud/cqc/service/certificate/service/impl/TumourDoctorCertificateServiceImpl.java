@@ -14,7 +14,6 @@ import com.cloud.cqc.service.certificate.vo.TumourDoctorCertificateVO;
 import com.cloud.cqc.util.AESUtil;
 import com.cloud.cqc.util.ExcelUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -222,9 +221,9 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
                         .build();
 
                 //随机生成五位英文加数字的验证码
-                String code = RandomStringUtils.randomAlphanumeric(5);
+                //String code = RandomStringUtils.randomAlphanumeric(5);
 
-                doctorCertificate.setVerifyCode(code);
+                //doctorCertificate.setVerifyCode(code);
 
                 doctorCertificate.setName(trimByStr(arr[0]));
 
