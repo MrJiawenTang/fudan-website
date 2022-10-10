@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -176,6 +177,8 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
 
         long errorNumber = 0L;
 
+        List<TumourDoctorCertificate> insertList = new ArrayList<>();
+
         for (Object ob : objects) {
 
             String line = ob.toString();
@@ -235,7 +238,7 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
 
                 try {
 
-                    tumourDoctorCertificateMapper.insert(doctorCertificate);
+                    insertList.add(doctorCertificate);
 
                     log.info("医生考核信息导入成功:{}", JSONObject.toJSONString(doctorCertificate));
 
@@ -248,6 +251,12 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
 
                 log.info("长度不足8,arrLength:{},或者为空数据行", arr.length);
             }
+        }
+        if (insertList.size() > 0) {
+
+            boolean flag = super.insertBatch(insertList, insertList.size());
+
+            log.info("批量导入医生证书信息标示:{},导入长度:{}", flag, insertList.size());
         }
 
         if (errorNumber == 0) {
