@@ -270,4 +270,11 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
     private String trimByStr(String str) {
         return str.trim();
     }
+
+    @Override
+    protected void getSearchKey(EntityWrapper<TumourDoctorCertificate> ew, Searchable searchable) {
+        if (StringUtils.isNotEmpty(searchable.getKey())) {
+            ew.eq("name_aes", AESUtil.AESEncode(searchable.getKey()));
+        }
+    }
 }
