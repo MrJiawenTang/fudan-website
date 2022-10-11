@@ -3,6 +3,7 @@ package com.cloud.cqc.service.certificate.service.impl;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.cloud.cqc.common.constant.CacheConstant;
 import com.cloud.cqc.exception.TumourException;
 import com.cloud.cqc.framework.persistence.dto.Searchable;
 import com.cloud.cqc.framework.persistence.service.impl.BaseServiceImpl;
@@ -212,10 +213,18 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
                     continue;
                 }
 
+                String finalTrainingDate = "";
+
+                if (!StringUtils.contains(trimByStr(arr[4]), CacheConstant.TRAINING_DATE_SUFFIX)) {
+                    finalTrainingDate = trimByStr(arr[4]) + CacheConstant.TRAINING_DATE_SUFFIX;
+                } else {
+                    finalTrainingDate = trimByStr(arr[4]);
+                }
+
                 //姓名 手机号 身份证号 培训会开始结束时间 培训会年度 证书编号 有效期 颁发时间 验证码 所属医院
                 TumourDoctorCertificate doctorCertificate = TumourDoctorCertificate.builder()
                         .trainingTimeSpan(trimByStr(arr[3]))
-                        .trainingDate(trimByStr(arr[4]))
+                        .trainingDate(finalTrainingDate)
                         .certificateNumber(trimByStr(arr[5]))
                         .termSpan(trimByStr(arr[6]))
                         .issuedTime(trimByStr(arr[7]))
