@@ -22,7 +22,7 @@
             <Pattern>[%level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %c:%L - %msg%n</Pattern>
         </encoder>
     </appender>
-    <logger name="com.zs" level="INFO" />
+    <logger name="com.cloud" level="INFO" />
     <root level="INFO">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
