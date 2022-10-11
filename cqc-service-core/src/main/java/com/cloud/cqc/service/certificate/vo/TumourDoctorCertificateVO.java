@@ -44,7 +44,8 @@ public class TumourDoctorCertificateVO extends BasicEntity {
     private Integer deleted = 0;
 
     public String getTrainingDate() {
-        if (StringUtils.isNotEmpty(this.trainingDate)) {
+
+        if (StringUtils.isNotEmpty(this.trainingDate) && !this.trainingDate.contains("上海市抗肿瘤药物规范化使用培训会")) {
 
             return this.trainingDate + "上海市抗肿瘤药物规范化使用培训会";
         }
