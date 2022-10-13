@@ -14,13 +14,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class CorsProperties {
 
 	/** 是否允许跨域 */
-	private Boolean allowed = false;
+	private Boolean allowed = true;
 	/** 映射路径 */
 	private String mapping = "/**";
 	/** 允许域名 */
 	private String allowedOrigins = "*";
 	/** 是否发送cookie */
-	private Boolean allowCredentials = false;
+	private Boolean allowCredentials = true;
 	/** 允许方法 */
 	private String[] allowedMethods = { "GET", "POST", "OPTIONS", "DELETE", "PUT" };
 	/** 缓存时间 */
