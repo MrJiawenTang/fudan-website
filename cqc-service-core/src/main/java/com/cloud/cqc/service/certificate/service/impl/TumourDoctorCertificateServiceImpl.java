@@ -3,6 +3,7 @@ package com.cloud.cqc.service.certificate.service.impl;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.cloud.cqc.common.constant.CacheConstant;
 import com.cloud.cqc.exception.TumourException;
 import com.cloud.cqc.framework.persistence.dto.Searchable;
 import com.cloud.cqc.framework.persistence.service.impl.BaseServiceImpl;
@@ -14,7 +15,6 @@ import com.cloud.cqc.service.certificate.vo.TumourDoctorCertificateVO;
 import com.cloud.cqc.util.AESUtil;
 import com.cloud.cqc.util.ExcelUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,6 +68,16 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
             if (search.getDeleted() != null) {
                 ew.eq("deleted", search.getDeleted());
             }
+
+            if (search.getStartTime() != null) {
+
+                ew.ge("create_time", search.getStartTime());
+            }
+
+            if (search.getEndTime() != null) {
+
+                ew.le("create_time", search.getEndTime());
+            }
         }
     }
 
@@ -93,7 +104,9 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
         try {
             String userDir = System.getProperties().getProperty("user.dir");
 
-            log.info("userDir:{}", userDir + "/cqc-service-core/src/main/resources/培训信息录入模板.xlsx");
+            userDir = userDir.substring(0, userDir.length() - 19);
+
+            log.info("userDir:{}", userDir);
 
             File file = new File(userDir + "/cqc-service-core/src/main/resources/培训信息录入模板.xlsx");
             response.setContentType("application/octet-stream;charset=utf-8");
@@ -123,7 +136,20 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
 
         }
 
-        super.updateById(tumourDoctorCertificate);
+        TumourDoctorCertificate findOne = tumourDoctorCertificateMapper.selectById(tumourDoctorCertificate.getId());
+
+        if (findOne == null) {
+
+            throw new RuntimeException("没有找到此ID的证书,Id:{}" + tumourDoctorCertificate.getId());
+        }
+
+        super.insertOrUpdate(tumourDoctorCertificate);
+    }
+
+    @Override
+    public void addEntity(TumourDoctorCertificateVO tumourDoctorCertificateVO) {
+
+        super.insert(tumourDoctorCertificateVO);
     }
 
     /**
@@ -146,9 +172,13 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
 
         List<Object> objects = ExcelUtil.readLessThan1000RowBySheetMultipartFile(file, sheet);
 
+        log.info("objects:{}", JSONObject.toJSONString(objects));
+
         StringBuilder errSbr = new StringBuilder("导入失败的医生，可能这些医生之前已经导入过:");
 
         long errorNumber = 0L;
+
+        List<TumourDoctorCertificate> insertList = new ArrayList<>();
 
         for (Object ob : objects) {
 
@@ -165,7 +195,7 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
                 continue;
             }
 
-            if (arr.length == 8) {
+            if (arr.length == 10) {
 
                 EntityWrapper<TumourDoctorCertificate> ew = new EntityWrapper<>();
 
@@ -183,19 +213,29 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
                     continue;
                 }
 
-                //姓名 手机号 身份证号 培训会开始结束时间 培训会年度 证书编号 有效期 颁发时间
+                String finalTrainingDate = "";
+
+                if (!StringUtils.contains(trimByStr(arr[4]), CacheConstant.TRAINING_DATE_SUFFIX)) {
+                    finalTrainingDate = trimByStr(arr[4]) + CacheConstant.TRAINING_DATE_SUFFIX;
+                } else {
+                    finalTrainingDate = trimByStr(arr[4]);
+                }
+
+                //姓名 手机号 身份证号 培训会开始结束时间 培训会年度 证书编号 有效期 颁发时间 验证码 所属医院
                 TumourDoctorCertificate doctorCertificate = TumourDoctorCertificate.builder()
                         .trainingTimeSpan(trimByStr(arr[3]))
-                        .trainingDate(trimByStr(arr[4]))
+                        .trainingDate(finalTrainingDate)
                         .certificateNumber(trimByStr(arr[5]))
                         .termSpan(trimByStr(arr[6]))
                         .issuedTime(trimByStr(arr[7]))
+                        .verifyCode(trimByStr(arr[8]))
+                        .hospital(trimByStr(arr[9]))
                         .build();
 
                 //随机生成五位英文加数字的验证码
-                String code = RandomStringUtils.randomAlphanumeric(5);
+                //String code = RandomStringUtils.randomAlphanumeric(5);
 
-                doctorCertificate.setVerifyCode(code);
+                //doctorCertificate.setVerifyCode(code);
 
                 doctorCertificate.setName(trimByStr(arr[0]));
 
@@ -203,9 +243,11 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
 
                 doctorCertificate.setIdCard(trimByStr(arr[2]));
 
+                doctorCertificate.setDeleted(0);
+
                 try {
 
-                    tumourDoctorCertificateMapper.insert(doctorCertificate);
+                    insertList.add(doctorCertificate);
 
                     log.info("医生考核信息导入成功:{}", JSONObject.toJSONString(doctorCertificate));
 
@@ -219,6 +261,12 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
                 log.info("长度不足8,arrLength:{},或者为空数据行", arr.length);
             }
         }
+        if (insertList.size() > 0) {
+
+            boolean flag = super.insertBatch(insertList, insertList.size());
+
+            log.info("批量导入医生证书信息标示:{},导入长度:{}", flag, insertList.size());
+        }
 
         if (errorNumber == 0) {
             return "success";
@@ -230,5 +278,12 @@ public class TumourDoctorCertificateServiceImpl extends BaseServiceImpl<TumourDo
     //去除空格
     private String trimByStr(String str) {
         return str.trim();
+    }
+
+    @Override
+    protected void getSearchKey(EntityWrapper<TumourDoctorCertificate> ew, Searchable searchable) {
+        if (StringUtils.isNotEmpty(searchable.getKey())) {
+            ew.eq("name_aes", AESUtil.AESEncode(searchable.getKey()));
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.cloud.cqc.service.certificate.vo;
 
+import com.cloud.cqc.common.constant.CacheConstant;
 import com.cloud.cqc.framework.persistence.entity.BasicEntity;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
@@ -41,10 +42,13 @@ public class TumourDoctorCertificateVO extends BasicEntity {
     //颁发时间
     private String issuedTime;
 
-    public String getTrainingDate() {
-        if (StringUtils.isNotEmpty(this.trainingDate)) {
+    private Integer deleted = 0;
 
-            return this.trainingDate + "上海市抗肿瘤药物规范化使用培训会";
+    public String getTrainingDate() {
+
+        if (StringUtils.isNotEmpty(this.trainingDate) && !this.trainingDate.contains(CacheConstant.TRAINING_DATE_SUFFIX)) {
+
+            return this.trainingDate + CacheConstant.TRAINING_DATE_SUFFIX;
         }
         return this.trainingDate;
     }

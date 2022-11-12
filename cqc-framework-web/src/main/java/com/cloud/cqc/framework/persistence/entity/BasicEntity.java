@@ -2,7 +2,6 @@ package com.cloud.cqc.framework.persistence.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.enums.FieldFill;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 
@@ -28,7 +27,6 @@ public class BasicEntity extends BasicSerializableEntity {
 	@TableField(fill = FieldFill.INSERT_UPDATE)
 	private String lastUpdateTime;
 
-	@JsonIgnore
 	public Integer getDeleted() {
 		return deleted;
 	}
@@ -37,7 +35,6 @@ public class BasicEntity extends BasicSerializableEntity {
 		this.deleted = deleted;
 	}
 
-	@JsonIgnore
 	public String getCreateBy() {
 		return createBy;
 	}
@@ -46,7 +43,6 @@ public class BasicEntity extends BasicSerializableEntity {
 		this.createBy = createBy;
 	}
 
-	@JsonIgnore
 	public String getLastUpdateBy() {
 		return lastUpdateBy;
 	}
@@ -55,7 +51,6 @@ public class BasicEntity extends BasicSerializableEntity {
 		this.lastUpdateBy = lastUpdateBy;
 	}
 
-	@JsonIgnore
 	public String getCreateTime() {
 		return createTime;
 	}
@@ -64,7 +59,6 @@ public class BasicEntity extends BasicSerializableEntity {
 		this.createTime = createTime;
 	}
 
-	@JsonIgnore
 	public String getLastUpdateTime() {
 		return lastUpdateTime;
 	}

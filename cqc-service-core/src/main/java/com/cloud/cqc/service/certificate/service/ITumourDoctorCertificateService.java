@@ -22,4 +22,6 @@ public interface ITumourDoctorCertificateService extends IBaseService<TumourDoct
     void upModelExcelFile(HttpServletResponse response);
 
     void updateEntity(TumourDoctorCertificate tumourDoctorCertificate);
+
+    void addEntity(TumourDoctorCertificateVO tumourDoctorCertificateVO);
 }
