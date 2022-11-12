@@ -1,57 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
-    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
-        <Target>System.out</Target>
+    <property name="LOG_HOME" value="/home/guest/workspace/logs/cqc-service/" />
+    <property name="LOG_FILE" value="cqc-service-info" />
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+        ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
-            <pattern>[%level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %c:%L - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
     </appender>
-
-    <appender name="INFO-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/home/guest/workspace/logs/cqc-service/cqc-service-info.log</file>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${LOG_FILE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${LOG_FILE}.%i.log.zip</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>20</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>20MB</maxFileSize>
+        </triggeringPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>[%level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %c:%L - %msg%n</Pattern>
         </encoder>
-
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- rollover daily -->
-            <fileNamePattern>/home/guest/workspace/logs/cqc-service/cqc-service-info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>50MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
     </appender>
-
-    <appender name="ERROR-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/home/guest/workspace/logs/cqc-service/cqc-service-error.log</file>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>ERROR</level>
-        </filter>
-        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>[%level] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %c:%L - %msg%n</Pattern>
-        </encoder>
-
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- rollover daily -->
-            <fileNamePattern>/home/guest/workspace/logs/cqc-service/cqc-service-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>50MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-    </appender>
-
-
-    <root level="info">
-        <appender-ref ref="stdout"/>
-        <appender-ref ref="INFO-FILE" />
-        <appender-ref ref="ERROR-FILE" />
-      <!--  <appender-ref ref="EMAIL" />-->
+    <logger name="com.zs" level="INFO" />
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
     </root>
 </configuration>
